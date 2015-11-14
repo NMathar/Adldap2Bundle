@@ -1,10 +1,23 @@
 ## Installation
 
-Adldap2 has moved to a composer based installation. If you'd like to use Adldap without an auto-loader, you'll
-have to require the files inside the project `src/` directory yourself.
+Insert Adldap2Bundle into your `composer.json` file:
 
-Insert Adldap into your `composer.json` file:
-
-    "adldap2/adldap2": "5.2.*"
+        [...]
+        "require" : {
+            [...]
+            "company/demobundle" : "dev-master"
+        },
+        "repositories" : [{
+            "type" : "vcs",
+            "url" : "https://github.com/NMonst4/Adldap2Bundle.git"
+        }],
+        [...]
    
-Run `composer update`
+Console:
+
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar update Adldap2Bundle
+    
+app/AppKernel:
+
+    new Adldap2Bundle\Adldap2Bundle(),
