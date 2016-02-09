@@ -12,9 +12,9 @@
   "license" : [
     "MIT"
   ],
-  "require" : {
-    "adldap2/adldap2": "5.2.*"
-  },
+//  "require" : {
+//    "adldap2/adldap2": "5.2.*"
+//  },
   "autoload" : {
     "psr-0" : {
       "Adldap2Bundle" : ""

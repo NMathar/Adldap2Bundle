@@ -19,6 +19,7 @@ Console:
 
     curl -sS https://getcomposer.org/installer | php
     php composer.phar update Adldap2Bundle
+    php composer.phar composer require "adldap2/adldap2"
     
 app/AppKernel:
 
