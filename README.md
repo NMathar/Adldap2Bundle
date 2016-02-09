@@ -1,3 +1,5 @@
+#Project in progress.....
+
 ## Installation
 
 Insert Adldap2Bundle into your `composer.json` file:
@@ -21,3 +23,8 @@ Console:
 app/AppKernel:
 
     new Adldap2Bundle\Adldap2Bundle(),
+    
+usage
+
+    $adLdap = $this->get("adldap2");
+    $adLdap->name("TEST");

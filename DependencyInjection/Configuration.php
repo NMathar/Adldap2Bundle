@@ -17,8 +17,28 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
+        //TODO: Define basic configuration
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('adldap2');
+        $rootNode
+            ->children()
+                ->arrayNode('config')
+                    ->children()
+                        ->scalarNode('account_suffix')->end()
+                        ->scalarNode('domain_controllers')->end()
+                        ->scalarNode('port')->end()
+                        ->scalarNode('base_dn')->end()
+                        ->scalarNode('admin_username')->end()
+                        ->scalarNode('admin_password')->end()
+                        ->booleanNode('follow_referrals')->end()
+                        ->booleanNode('use_ssl')->end()
+                        ->booleanNode('use_tls')->end()
+                        ->booleanNode('use_sso')->end()
+                        ->scalarNode('client_secret')->end()
+                    ->end()
+                ->end()// twitter
+            ->end()
+        ;
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
