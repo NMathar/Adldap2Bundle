@@ -2,8 +2,6 @@
 
 namespace Adldap2Bundle\Controller;
 
-//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use \Adldap\Adldap;
 
 class Adldap2Controller
@@ -63,8 +61,4 @@ class Adldap2Controller
         }
     }
 
-    public function getAllUsers()
-    {
-        return $this->ad->users()->all();
-    }
 }

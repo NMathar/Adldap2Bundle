@@ -1,9 +1,13 @@
 parameters:
   adldap2.class: Adldap2Bundle\Controller\Adldap2Controller
+  adldap2user.class: Adldap2Bundle\Controller\Adldap2UserController
 
 services:
   adldap2:
     class: %adldap2.class%
+    arguments: [@kernel]
+  adldap2user:
+    class: %adldap2user.class%
     arguments: [@kernel]
     #tags:
     #    - { name: twig.extension }
