@@ -30,3 +30,19 @@ usage
 
     $adLdap = $this->get("adldap2");
     $adLdap->name("TEST");
+
+Configuration example
+```
+    adldap2:
+        config:
+            account_suffix: "@gatech.edu"
+            domain_controllers: ["whitepages.gatech.edu"]
+            port: 389
+            base_dn: "dc=whitepages,dc=gatech,dc=edu"
+            admin_username: ""
+            admin_password: ""
+            follow_referrals: true
+            use_ssl: false
+            use_tls: false
+            use_sso: false
+```
