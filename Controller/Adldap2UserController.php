@@ -29,7 +29,7 @@ class Adldap2UserController extends Adldap2Controller
 
 
     /**
-     * Create a Active Directory user
+     * Create an Active Directory user
      * $attributes = [
      *   'cn' => 'John Doe',
      *   'givenname' => 'John',
@@ -43,27 +43,63 @@ class Adldap2UserController extends Adldap2Controller
         if ($this->ad->users()->create($attributes)) {
             return 'User was successfully created.';
         } else {
-            throw new \Exception('User could not be created. Check attributes!');
+//            var_dump($this->ad->getConnection()->showErrors());
+            throw new \Exception('User could not be created. Check attributes !  Error: ' .  json_encode($this->ad->getConnection()->err2Str($this->ad->getConnection()->errNo())));
+//            return 'User was not created';
         }
     }
 
 
-    public function newUser($firstname, $lastname, $username, $password)
+    /**
+     * Not working jet
+     *
+     * @param $firstname
+     * @param $lastname
+     * @param $username
+     * @param $password
+     * @return string
+     * @throws \Adldap\Exceptions\AdldapException
+     * @throws \Exception
+     */
+    public function newUser($firstname, $lastname, $username, $email)
     {
         $user = $this->ad->users()->newInstance();
 
-        $user->setFirstName($firstname);
 
-        $user->setLastName($lastname);
+        $cn = "$lastname, $firstname";
 
+
+//        $user->setDn($dn);
+        $user->setCommonName($cn);
+        $user->setName($cn);
         $user->setAccountName($username);
+        $user->setFirstName($firstname);
+        $user->setLastName($lastname);
+//        $user->setTitle($attributes['title']);
+//        $user->setDepartment($attributes['department']);
+//        $user->setTelephoneNumber($attributes['ipphone']);
+//        $user->setCompany($attributes['company']);
+        $user->setEmail($email);
 
-        $user->setPassword($password);
+
+        //TODO: Set dn as Democontroller
+
+        $dn = $user->getDnBuilder();
+
+        //TODO: example
+        $dn->addCn($user->getCommonName());
+        $dn->addOu('Users');
+        $dn->addDc('LOCAL');
+        $dn->addDc('DOMAIN');
+        $dn->addDc('AD');
+
+        $user->setDn($dn);
 
         if ($user->save()) {
-            return 'User was successfully created.';
+            return $user;
         } else {
-            throw new \Exception('User could not be created. Check attributes!');
+//            var_dump($this->ad->getConnection()->showErrors());
+            throw new \Exception('User could not be created. Check attributes !  Error: ' .  json_encode($this->ad->getConnection()->err2Str($this->ad->getConnection()->errNo())));
         }
     }
 }

@@ -13,8 +13,12 @@ class ConfigurationTest extends KernelTestCase
 
         $this->container = self::$kernel->getContainer();
 
+
+    }
+
+    public function testConfig(){
         //get configuration
-        $this->container->getParameter('account_suffix');
+        var_dump($this->container->getParameter('adldap2')['config']);
     }
 }
 

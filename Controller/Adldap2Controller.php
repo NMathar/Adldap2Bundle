@@ -36,20 +36,6 @@ class Adldap2Controller
     }
 
 
-    public function name($name)
-    {
-//        $config = $this->container->getParameter('adldap2');
-//        $config = $this->config['account_suffix'];
-//        var_dump($config);
-//        var_dump($name);
-
-//        var_dump($this->ad);
-
-
-        return $name;
-    }
-
-
     public function authentication($username, $password)
     {
         if ($this->ad->authenticate($username, $password)) {
@@ -58,6 +44,19 @@ class Adldap2Controller
         } else {
             // Uh oh, looks like the username or password is incorrect
             var_dump("login error");
+        }
+    }
+
+    public function connect($username, $password)
+    {
+        if ($this->ad->connect($username, $password)) {
+            // User passed authentication
+            var_dump("connect success");
+            return $this->ad;
+        } else {
+            // Uh oh, looks like the username or password is incorrect
+            var_dump("connect error");
+            return NULL;
         }
     }
 

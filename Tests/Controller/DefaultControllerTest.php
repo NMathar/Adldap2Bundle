@@ -3,15 +3,41 @@
 namespace Adldap2Bundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+    protected $adldap;
+    protected $adldapUser;
+    protected $unitTestUser = "unittest";
+
+    public function setUp()
     {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/hello/Fabien');
-
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+        self::bootKernel();
+        $this->adldapUser = static::$kernel->getContainer()->get('adldap2user');
+        $this->adldap = static::$kernel->getContainer()->get('adldap2');
     }
+
+
+    public function testCreateUser()
+    {
+        var_dump($this->adldapUser->newUser("Test", "Symfony", $this->unitTestUser, "test@mail.com"));
+    }
+
+
+    public function testGetUserInfo()
+    {
+        return $this->adldapUser->findUserbyUsername($this->unitTestUser, array('dn'));
+    }
+
+
+    public function testUserDelete()
+    {
+        if ($user = $this->adldapUser->findUserbyUsername($this->unitTestUser)) {
+            var_dump($user->delete());
+        }
+    }
+
+
+    //TODO: Build tests for user info, create, edit and delete
 }
