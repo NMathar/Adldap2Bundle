@@ -8,7 +8,7 @@ Insert Adldap2Bundle into your `composer.json` file:
         [...]
         "require" : {
             [...]
-            "company/demobundle" : "dev-master"
+            "Adldap2Bundle" : "dev-master"
         },
         "repositories" : [{
             "type" : "vcs",
