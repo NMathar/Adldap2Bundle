@@ -17,10 +17,10 @@
   },
   "autoload" : {
     "psr-0" : {
-      "NMonst4\\Adldap2Bundle" : ""
+      "Adldap2Bundle" : ""
     }
   },
-  "target-dir" : "NMonst4/Adldap2Bundle",
+  "target-dir" : "Adldap2Bundle",
   "extra" : {
     "branch-alias" : {
       "dev-master" : "0.0.1"
