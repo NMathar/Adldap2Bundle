@@ -4,7 +4,7 @@
   "type" : "symfony-bundle",
   "authors" : [{
     "name" : "NMonst4",
-    "email" : "nico.mathar@gmx.de"
+    "email" : "mail@nmonst4.mygigahost.de"
   }],
   "keywords" : [
     "Active Directory Bundle"
@@ -17,10 +17,10 @@
   },
   "autoload" : {
     "psr-0" : {
-      "Adldap2Bundle" : ""
+      "NMonst4\\Adldap2Bundle" : ""
     }
   },
-  "target-dir" : "Adldap2Bundle",
+  "target-dir" : "NMonst4/Adldap2Bundle",
   "extra" : {
     "branch-alias" : {
       "dev-master" : "0.0.1"
