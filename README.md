@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/NMonst4/Adldap2Bundle.png?label=ready&title=Ready)](https://waffle.io/NMonst4/Adldap2Bundle)
-#Project in progress.....
+# Project in progress.....
 
 ## Installation
 
@@ -26,12 +26,12 @@ app/AppKernel:
 
     new Adldap2Bundle\Adldap2Bundle(),
     
-usage
+## Usage
 
-    $adLdap = $this->get("adldap2");
-    $adLdap->name("TEST");
+        $adLdap = $this->get("adldap2user");
+        var_dump($adLdap->getAllUsers());
 
-Configuration example
+##Configuration example
 ```
     adldap2:
         config:
