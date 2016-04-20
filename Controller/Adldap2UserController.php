@@ -24,7 +24,8 @@ class Adldap2UserController extends Adldap2Controller
      */
     public function findUserbyUsername($username, $select = NULL)
     {
-        return $this->ad->users()->find($username, $select);
+        $con = parent::connect('Administrator', 'Hallo123');
+        return $con->users()->find($username, $select);
     }
 
 
@@ -63,13 +64,12 @@ class Adldap2UserController extends Adldap2Controller
      */
     public function newUser($firstname, $lastname, $username, $email)
     {
-        $user = $this->ad->users()->newInstance();
+        $con = parent::connect('Administrator', 'Hallo123');
 
+        $user = $con->users()->newInstance();
 
-        $cn = "$lastname, $firstname";
+        $cn = $username;
 
-
-//        $user->setDn($dn);
         $user->setCommonName($cn);
         $user->setName($cn);
         $user->setAccountName($username);
@@ -79,24 +79,36 @@ class Adldap2UserController extends Adldap2Controller
 //        $user->setDepartment($attributes['department']);
 //        $user->setTelephoneNumber($attributes['ipphone']);
 //        $user->setCompany($attributes['company']);
-        $user->setEmail($email);
+
+//        $user->setEmail($email);
 
 
-        //TODO: Set dn as Democontroller
-
+        //build DN
         $dn = $user->getDnBuilder();
 
-        //TODO: example
-        $dn->addCn($user->getCommonName());
-        $dn->addOu('Users');
-        $dn->addDc('LOCAL');
-        $dn->addDc('DOMAIN');
-        $dn->addDc('AD');
+        $baseDNArray = parent::parseLdapDn($this->ad->getConfiguration()->getBaseDn());
 
+        $dn->addCn($user->getCommonName());
+
+        if(isset($baseDNArray['ou']) && count($baseDNArray['ou']) > 0){
+            krsort($baseDNArray['ou']);
+            foreach ($baseDNArray['ou'] as $ou){
+                $dn->addOu($ou);
+            }
+        }
+
+        if(isset($baseDNArray['dc']) &&count($baseDNArray['dc']) > 0 ){
+            krsort($baseDNArray['dc']);
+            foreach ($baseDNArray['dc'] as $dc){
+                $dn->addDc($dc);
+            }
+        }
+        $dn->assemble();
         $user->setDn($dn);
 
+
         if ($user->save()) {
-            return $user;
+            return $user->getAttributes();
         } else {
 //            var_dump($this->ad->getConnection()->showErrors());
             throw new \Exception('User could not be created. Check attributes !  Error: ' .  json_encode($this->ad->getConnection()->err2Str($this->ad->getConnection()->errNo())));

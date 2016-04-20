@@ -60,4 +60,23 @@ class Adldap2Controller
         }
     }
 
+    public function parseLdapDn($dn)
+    {
+        $parsr = ldap_explode_dn($dn, 0);
+        $out = array();
+        foreach ($parsr as $key => $value) {
+            if (FALSE !== strstr($value, '=')) {
+                list($prefix, $data) = explode("=", $value);
+                $data = preg_replace("/\\\([0-9A-Fa-f]{2})/e", "''.chr(hexdec('\\1')).''", $data);
+                if (isset($current_prefix) && $prefix == $current_prefix) {
+                    $out[$prefix][] = $data;
+                } else {
+                    $current_prefix = $prefix;
+                    $out[$prefix][] = $data;
+                }
+            }
+        }
+        return $out;
+    }
+
 }

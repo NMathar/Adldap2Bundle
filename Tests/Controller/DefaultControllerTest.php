@@ -27,7 +27,8 @@ class DefaultControllerTest extends WebTestCase
 
     public function testGetUserInfo()
     {
-        return $this->adldapUser->findUserbyUsername($this->unitTestUser, array('dn'));
+        $user = $this->adldapUser->findUserbyUsername($this->unitTestUser, null);
+        return $user->getFirstName();
     }
 
 
