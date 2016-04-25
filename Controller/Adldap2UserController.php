@@ -6,6 +6,7 @@ namespace Adldap2Bundle\Controller;
 
 class Adldap2UserController extends Adldap2Controller
 {
+
     public function getAllUsers()
     {
         return $this->ad->users()->all();
@@ -24,8 +25,9 @@ class Adldap2UserController extends Adldap2Controller
      */
     public function findUserbyUsername($username, $select = NULL)
     {
-        $con = parent::connect('Administrator', 'Hallo123');
-        return $con->users()->find($username, $select);
+        $search = $this->ad->users()->search();
+        return $search->findBy('samaccountname', $username, $select);
+//        return $this->ad->users()->find($username, $select);
     }
 
 
@@ -41,7 +43,8 @@ class Adldap2UserController extends Adldap2Controller
      */
     public function createUser($attributes)
     {
-        if ($this->ad->users()->create($attributes)) {
+        $con = $this->connect($this->config['admin_username'], $this->config['admin_password']);
+        if ($con->users()->create($attributes)) {
             return 'User was successfully created.';
         } else {
 //            var_dump($this->ad->getConnection()->showErrors());
@@ -64,7 +67,7 @@ class Adldap2UserController extends Adldap2Controller
      */
     public function newUser($firstname, $lastname, $username, $email)
     {
-        $con = parent::connect('Administrator', 'Hallo123');
+        $con = parent::connect($this->config['admin_username'], $this->config['admin_password']);
 
         $user = $con->users()->newInstance();
 
@@ -86,7 +89,7 @@ class Adldap2UserController extends Adldap2Controller
         //build DN
         $dn = $user->getDnBuilder();
 
-        $baseDNArray = parent::parseLdapDn($this->ad->getConfiguration()->getBaseDn());
+        $baseDNArray = $this->parseLdapDn($this->ad->getConfiguration()->getBaseDn());
 
         $dn->addCn($user->getCommonName());
 
