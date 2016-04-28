@@ -23,7 +23,6 @@ class DefaultControllerTest extends WebTestCase
 
     public function testCreateUser()
     {
-//        var_dump($this->adldapUser->newUser("Test", "Symfony", $this->unitTestUser, "test@mail.com"));
         $attr = array('cn'             => "Test",
                       'dn'             => "cn=Test,".$this->config['base_dn'],
                       'sn'             => 'Symfony',
@@ -36,14 +35,14 @@ class DefaultControllerTest extends WebTestCase
     public function testGetUserInfo()
     {
         $user = $this->adldapUser->findUserbyUsername($this->unitTestUser, null);
-        var_dump($user->getFirstName());
+        var_dump($user->getAccountName());
     }
 
 
     public function testUserDelete()
     {
-        if ($user = $this->adldapUser->findUserbyUsername($this->unitTestUser)) {
-            var_dump($user->delete());
+        if ($this->adldapUser->deleteUser($this->unitTestUser)) {
+            var_dump("User Erfolgreich gelöscht");
         }
     }
 

@@ -13,7 +13,7 @@
     "MIT"
   ],
   "require" : {
-    "adldap2/adldap2": "5.2.*"
+    "adldap2/adldap2": "6.0.*"
   },
   "autoload" : {
     "psr-0" : {

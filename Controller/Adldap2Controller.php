@@ -3,11 +3,13 @@
 namespace Adldap2Bundle\Controller;
 
 use \Adldap\Adldap;
+use Adldap\Connections\Provider;
 
 class Adldap2Controller
 {
     protected $config;
     protected $ad;
+    protected $provider;
 
     public function __construct($kernel)
     {
@@ -16,48 +18,59 @@ class Adldap2Controller
         //show all config data
         //var_dump($this->config);
 
-        //array(1) {
-        //        ["config"]=> array(10) {
-        //            ["account_suffix"]=> string(11) "@gatech.edu",
-        //            ["domain_controllers"]=> string(21) "whitepages.gatech.edu",
-        //            ["port"]=> int(389),
-        //            ["base_dn"]=> string(30) "dc=whitepages,dc=gatech,dc=edu",
-        //            ["admin_username"]=> string(0) "username",
-        //            ["admin_password"]=> string(0) "password",
-        //            ["follow_referrals"]=> bool(true),
-        //            ["use_ssl"]=> bool(false),
-        //            ["use_tls"]=> bool(false),
-        //            ["use_sso"]=> bool(false)
-        //        }
-        //    }
-
-//        var_dump($this->config);
-        $this->ad = new Adldap($this->config);
+        $this->ad = new Adldap();
+        $this->provider = new Provider($this->config);
+        $this->ad->addProvider('default', $this->provider);
     }
 
 
     public function authentication($username, $password)
     {
-        if ($this->ad->authenticate($username, $password)) {
-            // User passed authentication
-            var_dump("login success");
-        } else {
-            // Uh oh, looks like the username or password is incorrect
-            var_dump("login error");
+        try {
+
+            if ($this->provider->auth()->attempt($username, $password)) {
+                // Credentials were correct.
+                var_dump("login success");
+            } else {
+                // Credentials were incorrect.
+                var_dump("login failed: Credentials were incorrect");
+            }
+
+        } catch (\Adldap\Exceptions\Auth\UsernameRequiredException $e) {
+            // The user didn't supply a username.
+        } catch (\Adldap\Exceptions\Auth\PasswordRequiredException $e) {
+            // The user didn't supply a password.
         }
     }
 
-    public function connect($username, $password)
-    {
-        if ($this->ad->connect($username, $password)) {
-            // User passed authentication
-            var_dump("connect success");
-            return $this->ad;
-        } else {
-            // Uh oh, looks like the username or password is incorrect
-            var_dump("connect error");
-            return NULL;
+    protected function authAsAdmin(){
+        try {
+            $this->provider->auth()->bindAsAdministrator();
+
+            return $this->provider;
+
+            // Successfully bound to server.
+        } catch (\Adldap\Exceptions\Auth\BindException $e) {
+            // There was an issue binding to the LDAP server.
+            return null;
         }
+    }
+
+
+    public function connect()
+    {
+        try {
+            $this->ad->connect('default');
+
+            // Connection was successful.
+
+            // We can now perform operations on the connection.
+            return $this->provider;
+
+        } catch (\Adldap\Exceptions\Auth\BindException $e) {
+            die("Can't bind to LDAP server!");
+        }
+        
     }
 
     public function parseLdapDn($dn)

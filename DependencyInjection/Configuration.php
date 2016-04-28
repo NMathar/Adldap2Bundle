@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('base_dn')->end()
                         ->scalarNode('admin_username')->end()
                         ->scalarNode('admin_password')->end()
+                        ->scalarNode('admin_account_suffix')->end()
                         ->booleanNode('follow_referrals')->end()
                         ->booleanNode('use_ssl')->end()
                         ->booleanNode('use_tls')->end()
