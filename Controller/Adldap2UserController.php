@@ -26,7 +26,7 @@ class Adldap2UserController extends Adldap2Controller {
      *   'cn',
      *   'memberof'
      *   ];
-     * 
+     *
      * @param $username
      * @param array $select
      * @return mixed
@@ -35,12 +35,18 @@ class Adldap2UserController extends Adldap2Controller {
     public function findUserbyUsername($username, array $select = array()) {
         parent::connect();
         $provider = parent::authAsAdmin();
-        $search = $provider->search();
-        $result = $search
-            ->where('samaccountname', '=', $username)
-            ->select($select)
-            ->first();
-        return $result;
+
+        try {
+            $search = $provider->search();
+            $result = $search
+                ->where('samaccountname', '=', $username)
+                ->select($select)
+                ->first();
+            return $result;
+        } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            // Record wasn't found!
+            return false;
+        }
     }
 
 
