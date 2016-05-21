@@ -23,8 +23,8 @@ class DefaultControllerTest extends WebTestCase
 
     public function testCreateUser()
     {
-        $attr = array('cn'             => "Test",
-                      'dn'             => "cn=Test,".$this->config['base_dn'],
+        $attr = array('cn'             => $this->unitTestUser,
+                      'dn'             => "cn=".$this->unitTestUser.",".$this->config['base_dn'],
                       'sn'             => 'Symfony',
                       'samaccountname' => $this->unitTestUser,
                       'mail'           => 'test@mail.com');
@@ -42,7 +42,7 @@ class DefaultControllerTest extends WebTestCase
     public function testUserDelete()
     {
         if ($this->adldapUser->deleteUser($this->unitTestUser)) {
-            var_dump("User Erfolgreich gelöscht");
+            var_dump("User was successful deleted");
         }
     }
 
