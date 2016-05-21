@@ -40,13 +40,9 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('use_sso')->end()
                         ->scalarNode('client_secret')->end()
                     ->end()
-                ->end()// twitter
+                ->end()
             ->end()
         ;
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
 
         return $treeBuilder;
     }
