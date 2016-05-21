@@ -47,5 +47,5 @@ class DefaultControllerTest extends WebTestCase
     }
 
 
-    //TODO: Build tests for user info, create, edit and delete
+    //TODO: create update user test
 }
