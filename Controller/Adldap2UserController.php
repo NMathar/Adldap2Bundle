@@ -4,14 +4,18 @@ namespace Adldap2Bundle\Controller;
 
 //use Adldap2Bundle\Controller\Adldap2Controller;
 
-class Adldap2UserController extends Adldap2Controller
-{
+class Adldap2UserController extends Adldap2Controller {
 
-    public function getAllUsers()
-    {
+    /**
+     * Get all users from Active Directory
+     *
+     * @return array|\Illuminate\Support\Collection
+     * @throws \Exception
+     */
+    public function getAllUsers() {
         $provider = parent::connect();
         $search = $provider->search();
-        return $search->all();
+        return $search->users()->get();
     }
 
     /**
@@ -22,14 +26,21 @@ class Adldap2UserController extends Adldap2Controller
      *   'cn',
      *   'memberof'
      *   ];
-     *
-     * @param $name
+     * 
+     * @param $username
+     * @param array $select
+     * @return mixed
+     * @throws \Exception
      */
-    public function findUserbyUsername($username, $select = '')
-    {
-        $provider = parent::connect();
+    public function findUserbyUsername($username, array $select = array()) {
+        parent::connect();
+        $provider = parent::authAsAdmin();
         $search = $provider->search();
-        return $search->getQuery()->findBy('samaccountname', $username);
+        $result = $search
+            ->where('samaccountname', '=', $username)
+            ->select($select)
+            ->first();
+        return $result;
     }
 
 
@@ -43,18 +54,17 @@ class Adldap2UserController extends Adldap2Controller
      * @param $attributes
      * @return string
      */
-    public function createUser($attributes)
-    {
+    public function createUser(array $attributes) {
         parent::connect();
         $provider = parent::authAsAdmin();
 
         $user = $provider->make()->user($attributes);
         if ($user->save()) {
             // User was saved.
-            return true;
+            return TRUE;
         } else {
             // There was an issue saving this user.
-            return false;
+            return FALSE;
         }
 //        $con = $this->connect($this->config['admin_username'], $this->config['admin_password']);
 //        if ($con->users()->create($attributes)) {
@@ -67,23 +77,50 @@ class Adldap2UserController extends Adldap2Controller
     }
 
     /**
+     * $attributes = [
+     *   'givenname' => 'John',
+     *   'surname' => 'Doe',
+     *   'mail' => 'test@test.com'
+     * ];
+     * @param $attributes
+     * @param $username
+     * @return bool
+     */
+    public function updateUser($username, array $attributes) {
+
+        $user = $this->findUserbyUsername($username);
+        if (is_array($attributes)) {
+            foreach ($attributes as $attrname => $attrvalue) {
+                $user->setAttribute($attrname, $attrvalue);
+            }
+            if ($user->update()) {
+                // User was updated.
+                return TRUE;
+            } else {
+                // There was an issue updating this user.
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
+    /**
      * @param $username
      */
-    public function deleteUser($username){
+    public function deleteUser($username) {
 
         parent::connect();
         $provider = parent::authAsAdmin();
         $user = $provider->search()->getQuery()->findBy('samaccountname', $username);
 
-        if($user->exists){
+        if ($user->exists) {
             if ($user->delete()) {
                 // Successfully deleted user.
-                return true; // Returns false.
+                return TRUE; // Returns false.
             }
         }
 
-        return false;
-
+        return FALSE;
     }
 
 
