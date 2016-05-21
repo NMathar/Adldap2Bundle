@@ -2,7 +2,6 @@
 
 namespace Adldap2Bundle\Controller;
 
-//use Adldap2Bundle\Controller\Adldap2Controller;
 
 class Adldap2UserController extends Adldap2Controller {
 
@@ -44,7 +43,7 @@ class Adldap2UserController extends Adldap2Controller {
                 ->first();
             return $result;
         } catch (Adldap\Exceptions\ModelNotFoundException $e) {
-            // Record wasn't found!
+            // user wasn't found!
             return false;
         }
     }
