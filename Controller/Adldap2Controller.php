@@ -63,14 +63,12 @@ class Adldap2Controller
             $this->ad->connect('default');
 
             // Connection was successful.
-
             // We can now perform operations on the connection.
             return $this->provider;
 
         } catch (\Adldap\Exceptions\Auth\BindException $e) {
-            die("Can't bind to LDAP server!");
+            throw new \Exception('Can\'t bind to LDAP server!');
         }
-        
     }
 
     public function parseLdapDn($dn)
