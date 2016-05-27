@@ -52,7 +52,7 @@ class Adldap2Controller
             // Successfully bound to server.
         } catch (\Adldap\Exceptions\Auth\BindException $e) {
             // There was an issue binding to the LDAP server.
-            return null;
+            throw new \Exception('Could not bind as Admin !  Error: ' .  $e);
         }
     }
 
