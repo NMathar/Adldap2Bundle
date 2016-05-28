@@ -15,4 +15,8 @@ class Adldap2OUController extends Adldap2Controller {
         $search = $provider->search();
         return $search->ous()->get();
     }
+
+
+
+    //TODO: Add create, findbyname, update and delete functions
 }

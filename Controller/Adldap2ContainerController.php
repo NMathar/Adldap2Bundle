@@ -30,4 +30,7 @@ class Adldap2ContainerController extends Adldap2Controller
 
         return $search->orWhereEquals("cn", "Users")->orWhereEquals("cn", "Computers")->orWhereContains('cn', 'Builtin')->get();
     }
+
+
+    //TODO: Add create, findbyname, update and delete functions
 }
