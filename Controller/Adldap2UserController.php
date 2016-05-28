@@ -32,8 +32,7 @@ class Adldap2UserController extends Adldap2Controller {
      * @throws \Exception
      */
     public function findUserbyUsername($username, array $select = array()) {
-        parent::connect();
-        if ($provider = parent::authAsAdmin()) {
+        if ($provider = parent::connectAsAdmin()) {
             try {
                 $search = $provider->search();
                 $result = $search
@@ -61,17 +60,17 @@ class Adldap2UserController extends Adldap2Controller {
      * @return string
      */
     public function createUser(array $attributes) {
-        parent::connect();
-        $provider = parent::authAsAdmin();
-
-        $user = $provider->make()->user($attributes);
-        if ($user->save()) {
-            // User was saved.
-            return TRUE;
-        } else {
-            // There was an issue saving this user.
-            return FALSE;
+        if ($provider = parent::connectAsAdmin()) {
+            $user = $provider->make()->user($attributes);
+            if ($user->save()) {
+                // User was saved.
+                return TRUE;
+            } else {
+                // There was an issue saving this user.
+                return FALSE;
+            }
         }
+        return FALSE;
 //        $con = $this->connect($this->config['admin_username'], $this->config['admin_password']);
 //        if ($con->users()->create($attributes)) {
 //            return 'User was successfully created.';
@@ -115,17 +114,15 @@ class Adldap2UserController extends Adldap2Controller {
      */
     public function deleteUser($username) {
 
-        parent::connect();
-        $provider = parent::authAsAdmin();
-        $user = $provider->search()->getQuery()->findBy('samaccountname', $username);
-
-        if ($user->exists) {
-            if ($user->delete()) {
-                // Successfully deleted user.
-                return TRUE; // Returns false.
+        if ($provider = parent::connectAsAdmin()) {
+            $user = $provider->search()->getQuery()->findBy('samaccountname', $username);
+            if ($user->exists) {
+                if ($user->delete()) {
+                    // Successfully deleted user.
+                    return TRUE; // Returns false.
+                }
             }
         }
-
         return FALSE;
     }
 

@@ -3,8 +3,7 @@
 namespace Adldap2Bundle\Controller;
 
 
-class Adldap2OUController extends Adldap2Controller
-{
+class Adldap2OUController extends Adldap2Controller {
     /**
      * Get all OUs from Active Directory
      *
@@ -12,7 +11,7 @@ class Adldap2OUController extends Adldap2Controller
      * @throws \Exception
      */
     public function getAllOus() {
-        $provider = parent::connect();
+        $provider = parent::connectAsAdmin();
         $search = $provider->search();
         return $search->ous()->get();
     }

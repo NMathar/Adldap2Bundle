@@ -43,10 +43,10 @@ class Adldap2Controller
         }
     }
 
-    protected function authAsAdmin(){
+    protected function connectAsAdmin(){
         try {
+            $this->ad->connect('default');
             $this->provider->auth()->bindAsAdministrator();
-
             return $this->provider;
 
             // Successfully bound to server.
@@ -61,7 +61,6 @@ class Adldap2Controller
     {
         try {
             $this->ad->connect('default');
-
             // Connection was successful.
             // We can now perform operations on the connection.
             return $this->provider;
