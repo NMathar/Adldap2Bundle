@@ -4,7 +4,7 @@
   "type" : "symfony-bundle",
   "authors" : [{
     "name" : "NMonst4",
-    "email" : "mail@nmonst4.mygigahost.de"
+    "email" : "mail@nmonst4.de"
   }],
   "keywords" : [
     "Active Directory Bundle"
