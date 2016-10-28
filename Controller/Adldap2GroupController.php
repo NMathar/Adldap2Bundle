@@ -48,6 +48,7 @@ class Adldap2GroupController extends Adldap2Controller
      * @param array $select
      * @return mixed
      * @throws \Exception
+     *
      */
     public function findGroupbyDN($dn) {
         if ($provider = parent::connectAsAdmin()) {
