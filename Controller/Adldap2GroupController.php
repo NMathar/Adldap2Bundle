@@ -41,6 +41,30 @@ class Adldap2GroupController extends Adldap2Controller
         return FALSE;
     }
 
+    /**
+     * find group by dn
+     *
+     * @param $dn
+     * @param array $select
+     * @return mixed
+     * @throws \Exception
+     */
+    public function findGroupbyDN($dn) {
+        if ($provider = parent::connectAsAdmin()) {
+            try {
+                $search = $provider->search();
+                $result = $search
+                    ->where('distinguishedname', '=', $dn)
+                    ->first();
+                return $result;
+            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+                // user wasn't found!
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
 
     /**
      * Create an Active Directory group
