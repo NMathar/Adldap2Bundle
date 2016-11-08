@@ -48,6 +48,31 @@ class Adldap2UserController extends Adldap2Controller {
         return FALSE;
     }
 
+    /**
+     * find user by dn
+     *
+     * @param $dn
+     * @param array $select
+     * @return mixed
+     * @throws \Exception
+     *
+     */
+    public function findUserbyDN($dn) {
+        if ($provider = parent::connectAsAdmin()) {
+            try {
+                $search = $provider->search();
+                $result = $search
+                    ->where('distinguishedname', '=', $dn)
+                    ->first();
+                return $result;
+            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+                // user wasn't found!
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
 
     /**
      * Create an Active Directory user
