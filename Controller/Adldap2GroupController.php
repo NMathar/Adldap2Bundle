@@ -54,9 +54,7 @@ class Adldap2GroupController extends Adldap2Controller
         if ($provider = parent::connectAsAdmin()) {
             try {
                 $search = $provider->search();
-                $result = $search
-                    ->where('distinguishedname', '=', $dn)
-                    ->first();
+                $result = $search->groups()->findByDn($dn);
                 return $result;
             } catch (Adldap\Exceptions\ModelNotFoundException $e) {
                 // user wasn't found!
