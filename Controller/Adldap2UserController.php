@@ -61,9 +61,7 @@ class Adldap2UserController extends Adldap2Controller {
         if ($provider = parent::connectAsAdmin()) {
             try {
                 $search = $provider->search();
-                $result = $search
-                    ->where('distinguishedname', '=', $dn)
-                    ->first();
+                $result = $search->users()->findByDn($dn);
                 return $result;
             } catch (Adldap\Exceptions\ModelNotFoundException $e) {
                 // user wasn't found!
