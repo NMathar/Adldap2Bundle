@@ -80,18 +80,28 @@ class Adldap2UserController extends Adldap2Controller {
      *   'surname' => 'Doe',
      * ];
      * @param $attributes
+     * @param $password
      * @return string
      */
-    public function createUser(array $attributes) {
+    public function createUser(array $attributes, $password) {
         if ($provider = parent::connectAsAdmin()) {
             $user = $provider->make()->user($attributes);
+            
             if ($user->save()) {
-                // User was saved.
-                return TRUE;
-            } else {
-                // There was an issue saving this user.
-                return FALSE;
-            }
+                // Enable the new user (using user account control).
+                $user->setUserAccountControl(512);
+
+                // Set new user password
+                $user->setPassword($password);
+                
+                if ($user->save()) {
+                    // User was saved.
+                    return TRUE;
+                } else {
+                    // There was an issue saving this user.
+                    return FALSE;
+                }
+             }
         }
         return FALSE;
     }
