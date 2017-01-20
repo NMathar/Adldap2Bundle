@@ -20,7 +20,7 @@ class Adldap2Controller
 
         $this->ad = new Adldap();
         $this->provider = new Provider($this->config);
-        $this->ad->addProvider('default', $this->provider);
+        $this->ad->addProvider($this->provider, $name = 'default');
     }
 
 
