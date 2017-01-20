@@ -7,19 +7,19 @@ parameters:
 
 services:
   adldap2:
-    class: %adldap2.class%
+    class: '%adldap2.class%'
     arguments: ["@kernel"]
   adldap2user:
-    class: %adldap2user.class%
+    class: '%adldap2user.class%'
     arguments: ["@kernel"]
   adldap2ou:
-    class: %adldap2ou.class%
+    class: '%adldap2ou.class%'
     arguments: ["@kernel"]
   adldap2container:
-    class: %adldap2container.class%
+    class: '%adldap2container.class%'
     arguments: ["@kernel"]
   adldap2group:
-    class: %adldap2group.class%
+    class: '%adldap2group.class%'
     arguments: ["@kernel"]
     #tags:
     #    - { name: twig.extension }
