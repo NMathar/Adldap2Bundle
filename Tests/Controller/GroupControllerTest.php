@@ -5,7 +5,7 @@ namespace Adldap2Bundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class DefaultControllerTest extends WebTestCase
+class GroupControllerTest extends WebTestCase
 {
     protected $adldap;
     protected $adldapGroup;
