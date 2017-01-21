@@ -11,6 +11,7 @@ class UserControllerTest extends WebTestCase
     protected $adldapUser;
     protected $config;
     protected $unitTestUser = "unittest";
+    protected $unitTestUserPassword = "unittestPassword";
 
     public function setUp()
     {
@@ -28,7 +29,7 @@ class UserControllerTest extends WebTestCase
                       'sn'             => 'Symfony',
                       'samaccountname' => $this->unitTestUser,
                       'mail'           => 'test@mail.com');
-        var_dump($this->adldapUser->createUser($attr));
+        var_dump($this->adldapUser->createUser($attr, $this->unitTestUserPassword));
     }
 
 
@@ -36,6 +37,11 @@ class UserControllerTest extends WebTestCase
     {
         $user = $this->adldapUser->findUserbyUsername($this->unitTestUser, null);
         var_dump($user->getAccountName());
+    }
+
+
+    public function testUserEdit(){
+        var_dump($this->adldapUser->updateUser($this->unitTestUser, array("mail" => "test2@mail.com")));
     }
 
 
@@ -47,5 +53,5 @@ class UserControllerTest extends WebTestCase
     }
 
 
-    //TODO: create update user test
+
 }
