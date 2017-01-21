@@ -44,5 +44,4 @@ app/AppKernel:
             follow_referrals: true
             use_ssl: false
             use_tls: false
-            use_sso: false
 ```

@@ -13,17 +13,21 @@ class Adldap2Controller
 
     public function __construct($kernel)
     {
+        //get config from app/config/config.yml
         $this->config = $kernel->getContainer()->getParameter('adldap2')['config'];
 
-        //show all config data
-        //var_dump($this->config);
-
         $this->ad = new Adldap();
+        //create new provider from config
         $this->provider = new Provider($this->config);
+        //add new provider
         $this->ad->addProvider($this->provider, $name = 'default');
     }
 
 
+    /**
+     * @param $username
+     * @param $password
+     */
     public function authentication($username, $password)
     {
         try {
@@ -43,6 +47,10 @@ class Adldap2Controller
         }
     }
 
+    /**
+     * @return Provider
+     * @throws \Exception
+     */
     protected function connectAsAdmin(){
         try {
             $this->ad->connect('default');
@@ -57,6 +65,10 @@ class Adldap2Controller
     }
 
 
+    /**
+     * @return Provider
+     * @throws \Exception
+     */
     public function connect()
     {
         try {
@@ -70,6 +82,10 @@ class Adldap2Controller
         }
     }
 
+    /**
+     * @param $dn
+     * @return array
+     */
     public function parseLdapDn($dn)
     {
         $parsr = ldap_explode_dn($dn, 0);
