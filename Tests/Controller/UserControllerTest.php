@@ -37,8 +37,8 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserInfo()
     {
-        $user = $this->adldapUser->findUserbyUsername($this->unitTestUser, ['mail']);
-        var_dump($user->getAccountName());
+        $user = $this->adldapUser->findUserbyUsername($this->unitTestUser, ['mail', 'cn']);
+        var_dump($user->getCommonName());
     }
 
 
