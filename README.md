@@ -31,6 +31,9 @@ app/AppKernel:
         $adLdap = $this->get("adldap2user");
         var_dump($adLdap->getAllUsers());
 
+## Example
+ [Examples File](docs/example.md)
+
 ##Configuration example
 ```
     adldap2:

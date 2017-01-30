@@ -1,5 +1,32 @@
 # Examples
 
+## Create user
+
+```php
+    <?php 
+    $adUser = $this->get("adldap2user");
+    
+    $attr = array(
+                'cn' => 'Username',
+                'dn' => "cn=Username," . $this->config['base_dn'],
+                'sn' => 'Symfony',
+                'mail' => 'test@mail.com');
+    
+    var_dump($adUser->createUser($attr, 'SuperSecPW1234__!'));
+    ?>
+```
+
+## Delete user
+
+```php
+    <?php 
+    $adUser = $this->get("adldap2user");
+    if ($adUser->deleteUser('Username')) {
+            var_dump("User was successful deleted");
+    }
+    ?>
+```
+
 ## Get all user informations
 
 ```php
