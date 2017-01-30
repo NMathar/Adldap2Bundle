@@ -31,8 +31,8 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroupInfo()
     {
-        $user = $this->adldapGroup->findGroupbyName($this->unitTestGroup);
-        var_dump($user->getAccountName());
+        $group = $this->adldapGroup->findGroupbyName($this->unitTestGroup);
+        var_dump($group->getCommonName());
     }
 
 
