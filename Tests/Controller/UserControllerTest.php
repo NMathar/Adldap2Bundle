@@ -11,7 +11,7 @@ class UserControllerTest extends WebTestCase
     protected $adldapUser;
     protected $config;
     protected $unitTestUser = "unittest";
-    protected $unitTestUserPassword = "unittestPassword";
+    protected $unitTestUserPassword = "Pw123__!";
 
     public function setUp()
     {
@@ -24,11 +24,13 @@ class UserControllerTest extends WebTestCase
 
     public function testCreateUser()
     {
-        $attr = array('cn'             => $this->unitTestUser,
-                      'dn'             => "cn=".$this->unitTestUser.",".$this->config['base_dn'],
-                      'sn'             => 'Symfony',
-                      'samaccountname' => $this->unitTestUser,
-                      'mail'           => 'test@mail.com');
+        $attr = array(
+            'cn' => $this->unitTestUser,
+            'dn' => "cn=" . $this->unitTestUser . "," . $this->config['base_dn'],
+            'sn' => 'Symfony',
+            'samaccountname' => $this->unitTestUser,
+            'mail' => 'test@mail.com');
+
         var_dump($this->adldapUser->createUser($attr, $this->unitTestUserPassword));
     }
 
@@ -40,7 +42,8 @@ class UserControllerTest extends WebTestCase
     }
 
 
-    public function testUserEdit(){
+    public function testUserEdit()
+    {
         var_dump($this->adldapUser->updateUser($this->unitTestUser, array("mail" => "test2@mail.com")));
     }
 
@@ -51,7 +54,6 @@ class UserControllerTest extends WebTestCase
             var_dump("User was successful deleted");
         }
     }
-
 
 
 }
