@@ -4,6 +4,7 @@ parameters:
   adldap2ou.class: Adldap2Bundle\Controller\Adldap2OUController
   adldap2container.class: Adldap2Bundle\Controller\Adldap2ContainerController
   adldap2group.class: Adldap2Bundle\Controller\Adldap2GroupController
+  adldap2computer.class: Adldap2Bundle\Controller\Adldap2ComputerController
 
 services:
   adldap2:
@@ -20,6 +21,9 @@ services:
     arguments: ["@kernel"]
   adldap2group:
     class: '%adldap2group.class%'
+    arguments: ["@kernel"]
+  adldap2computer:
+    class: '%adldap2computer.class%'
     arguments: ["@kernel"]
     #tags:
     #    - { name: twig.extension }
