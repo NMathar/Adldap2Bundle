@@ -28,6 +28,14 @@ class GroupControllerTest extends WebTestCase
         var_dump($this->adldapGroup->createGroup($attr));
     }
 
+    public function testUpdateComputer()
+    {
+        if($this->adldapGroup->updateGroup($this->unitTestGroup, ['description' => 'Test new Description'])){
+            var_dump("Group has been updated successfully.");
+        }else{
+            var_dump("Update Failed");
+        }
+    }
 
     public function testGetGroupInfo()
     {
@@ -39,7 +47,7 @@ class GroupControllerTest extends WebTestCase
     public function testGroupDelete()
     {
         if ($this->adldapGroup->deleteGroup($this->unitTestGroup)) {
-            var_dump("Group was successful deleted");
+            var_dump("Group has been deleted successfully.");
         }
     }
 
