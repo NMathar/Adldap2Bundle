@@ -44,7 +44,11 @@ class UserControllerTest extends WebTestCase
 
     public function testUserEdit()
     {
-        var_dump($this->adldapUser->updateUser($this->unitTestUser, array("mail" => "test2@mail.com")));
+        if($this->adldapUser->updateUser($this->unitTestUser, array("mail" => "test2@mail.com"))){
+            var_dump("User has been updated successfully.");
+        }else{
+            var_dump("Update Failed");
+        }
     }
 
 
