@@ -87,6 +87,32 @@ class Adldap2GroupController extends Adldap2Controller
         return FALSE;
     }
 
+        /**
+     * $attributes = [
+     *   'description' => 'Description',
+     * ];
+     * @param $attributes
+     * @param $groupname
+     * @return bool
+     */
+    public function updateGroup($groupname, array $attributes) {
+
+        $group = $this->findGroupbyName($groupname);
+        if (is_array($attributes)) {
+            foreach ($attributes as $attrname => $attrvalue) {
+                $group->setAttribute($attrname, $attrvalue);
+            }
+            if ($group->update()) {
+                // Group was updated.
+                return TRUE;
+            } else {
+                // There was an issue updating this group.
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
 
     /**
      * @param $groupname
