@@ -20,7 +20,7 @@ class Adldap2GroupController extends Adldap2Controller
     /**
      * find group by groupname
      *
-     * @param $username
+     * @param $groupname
      * @param array $select
      * @return mixed
      * @throws \Exception
@@ -34,7 +34,31 @@ class Adldap2GroupController extends Adldap2Controller
                     ->first();
                 return $result;
             } catch (Adldap\Exceptions\ModelNotFoundException $e) {
-                // user wasn't found!
+                // group wasn't found!
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
+        /**
+     * find group by objectsid
+     *
+     * @param $objectsid
+     * @param array $select
+     * @return mixed
+     * @throws \Exception
+     */
+    public function findGroupbyObjectSid($objectsid) {
+        if ($provider = parent::connectAsAdmin()) {
+            try {
+                $search = $provider->search();
+                $result = $search
+                    ->where('objectsid', '=', $objectsid)
+                    ->first();
+                return $result;
+            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+                // group wasn't found!
                 return FALSE;
             }
         }
@@ -57,7 +81,7 @@ class Adldap2GroupController extends Adldap2Controller
                 $result = $search->groups()->findByDn($dn);
                 return $result;
             } catch (Adldap\Exceptions\ModelNotFoundException $e) {
-                // user wasn't found!
+                // group wasn't found!
                 return FALSE;
             }
         }
