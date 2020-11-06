@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/NMonst4/Adldap2Bundle.png?label=ready&title=Ready)](https://waffle.io/NMonst4/Adldap2Bundle)
+
 # Project in progress.....
 
 ## Installation
