@@ -1,10 +1,10 @@
 {
-  "name" : "Adldap2Bundle",
+  "name" : "nmathar/adldap2bundle",
   "description" : "This is a Active Directory Manager Bundle for Symfony 2",
   "type" : "symfony-bundle",
   "authors" : [{
-    "name" : "NMonst4",
-    "email" : "mail@nmonst4.de"
+    "name" : "NMathar",
+    "email" : "mail@mathar.work"
   }],
   "keywords" : [
     "Active Directory Bundle"
