@@ -18,8 +18,8 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         //TODO: Define basic configuration
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('adldap2');
+        $treeBuilder = new TreeBuilder('adldap2');
+        $rootNode = $treeBuilder->->getRootNode();
         $rootNode
             ->children()
                 ->arrayNode('config')
