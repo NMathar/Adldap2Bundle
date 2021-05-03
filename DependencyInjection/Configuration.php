@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
     {
         //TODO: Define basic configuration
         $treeBuilder = new TreeBuilder('adldap2');
-        $rootNode = $treeBuilder->->getRootNode();
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->arrayNode('config')
