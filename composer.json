@@ -1,29 +1,31 @@
 {
-  "name" : "nmathar/adldap2bundle",
-  "description" : "This is a Active Directory Manager Bundle for Symfony 2",
-  "type" : "symfony-bundle",
-  "authors" : [{
-    "name" : "NMathar",
-    "email" : "mail@mathar.work"
-  }],
-  "keywords" : [
+  "name": "nmathar/adldap2bundle",
+  "description": "This is a Active Directory Manager Bundle for Symfony 2",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "NMathar",
+      "email": "mail@mathar.work"
+    }
+  ],
+  "keywords": [
     "Active Directory Bundle"
   ],
-  "license" : [
+  "license": [
     "MIT"
   ],
-  "require" : {
-    "adldap2/adldap2": "6.1.*"
+  "require": {
+    "adldap2/adldap2": "v10.3.*"
   },
-  "autoload" : {
-    "psr-0" : {
-      "Adldap2Bundle" : ""
+  "autoload": {
+    "psr-0": {
+      "Adldap2Bundle": ""
     }
   },
-  "target-dir" : "Adldap2Bundle",
-  "extra" : {
-    "branch-alias" : {
-      "dev-master" : "0.0.1"
+  "target-dir": "Adldap2Bundle",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.0.1"
     }
   }
 }
