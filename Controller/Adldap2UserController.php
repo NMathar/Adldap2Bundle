@@ -11,10 +11,10 @@ class Adldap2UserController extends Adldap2Controller {
      * @return array|\Illuminate\Support\Collection
      * @throws \Exception
      */
-    public function getAllUsers() {
-        $provider = parent::connect();
-        $search = $provider->search();
-        return $search->users()->get();
+    public function getAllUsers(array $select = array())
+    {
+        $provider = parent::connectAsAdmin();
+        return $provider->search()->users()->select($select)->get();
     }
 
     /**
