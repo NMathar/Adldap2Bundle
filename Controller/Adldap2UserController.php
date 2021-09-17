@@ -38,7 +38,7 @@ class Adldap2UserController extends Adldap2Controller {
                 $result = $search
                     ->where('samaccountname', '=', $username)
                     ->select($select)
-                    ->get();
+                    ->first();
                 return $result;
             } catch (Adldap\Exceptions\ModelNotFoundException $e) {
                 // user wasn't found!
