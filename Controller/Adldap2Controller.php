@@ -16,11 +16,10 @@ class Adldap2Controller
         $this->config = $kernel->getContainer()->getParameter('adldap2')['config'];
 
         //show all config data
-        //var_dump($this->config);
+        // var_dump($this->config);
 
         $this->ad = new Adldap();
-        $this->provider = new Provider($this->config);
-        $this->ad->addProvider('default', $this->provider);
+        $this->provider = $this->ad->addProvider($this->config, 'default');
     }
 
 
@@ -50,7 +49,7 @@ class Adldap2Controller
             return $this->provider;
 
             // Successfully bound to server.
-        } catch (\Adldap\Exceptions\Auth\BindException $e) {
+        } catch (\Adldap\Auth\BindException $e) {
             // There was an issue binding to the LDAP server.
             throw new \Exception('Could not bind as Admin !  Error: ' .  $e);
         }
@@ -65,7 +64,7 @@ class Adldap2Controller
             // We can now perform operations on the connection.
             return $this->provider;
 
-        } catch (\Adldap\Exceptions\Auth\BindException $e) {
+        } catch (\Adldap\Auth\BindException $e) {
             throw new \Exception('Can\'t bind to LDAP server!');
         }
     }
