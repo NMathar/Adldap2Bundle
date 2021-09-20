@@ -35,9 +35,9 @@ class Adldap2Controller
                 var_dump("login failed: Credentials were incorrect");
             }
 
-        } catch (\Adldap\Exceptions\Auth\UsernameRequiredException $e) {
+        } catch (\Adldap\Auth\UsernameRequiredException $e) {
             // The user didn't supply a username.
-        } catch (\Adldap\Exceptions\Auth\PasswordRequiredException $e) {
+        } catch (\Adldap\Auth\PasswordRequiredException $e) {
             // The user didn't supply a password.
         }
     }

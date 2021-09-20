@@ -33,7 +33,7 @@ class Adldap2GroupController extends Adldap2Controller
                     ->where('cn', '=', $groupname)
                     ->first();
                 return $result;
-            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            } catch (\Adldap\Models\ModelNotFoundException $e) {
                 // group wasn't found!
                 return FALSE;
             }
@@ -57,7 +57,7 @@ class Adldap2GroupController extends Adldap2Controller
                     ->where('objectsid', '=', $objectsid)
                     ->first();
                 return $result;
-            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            } catch (\Adldap\Models\ModelNotFoundException $e) {
                 // group wasn't found!
                 return FALSE;
             }
@@ -80,7 +80,7 @@ class Adldap2GroupController extends Adldap2Controller
                 $search = $provider->search();
                 $result = $search->groups()->findByDn($dn);
                 return $result;
-            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            } catch (\Adldap\Models\ModelNotFoundException $e) {
                 // group wasn't found!
                 return FALSE;
             }
