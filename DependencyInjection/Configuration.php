@@ -18,26 +18,25 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         //TODO: Define basic configuration
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('adldap2');
+        $treeBuilder = new TreeBuilder('adldap2');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->arrayNode('config')
                     ->children()
                         ->scalarNode('account_suffix')->end()
-                        ->arrayNode('domain_controllers')
+                        ->arrayNode('hosts')
                             ->isRequired()
                             ->prototype('scalar')->end()
                         ->end()
                         ->scalarNode('port')->end()
                         ->scalarNode('base_dn')->end()
-                        ->scalarNode('admin_username')->end()
-                        ->scalarNode('admin_password')->end()
-                        ->scalarNode('admin_account_suffix')->end()
+                        ->scalarNode('username')->end()
+                        ->scalarNode('password')->end()
+                        ->scalarNode('account_suffix')->end()
                         ->booleanNode('follow_referrals')->end()
                         ->booleanNode('use_ssl')->end()
                         ->booleanNode('use_tls')->end()
-                        ->booleanNode('use_sso')->end()
                         ->scalarNode('client_secret')->end()
                     ->end()
                 ->end()

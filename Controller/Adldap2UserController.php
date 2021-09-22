@@ -11,10 +11,10 @@ class Adldap2UserController extends Adldap2Controller {
      * @return array|\Illuminate\Support\Collection
      * @throws \Exception
      */
-    public function getAllUsers() {
-        $provider = parent::connect();
-        $search = $provider->search();
-        return $search->users()->get();
+    public function getAllUsers(array $select = array())
+    {
+        $provider = parent::connectAsAdmin();
+        return $provider->search()->users()->select($select)->get();
     }
 
     /**
@@ -40,7 +40,7 @@ class Adldap2UserController extends Adldap2Controller {
                     ->select($select)
                     ->first();
                 return $result;
-            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            } catch (\Adldap\Models\ModelNotFoundException $e) {
                 // user wasn't found!
                 return FALSE;
             }
@@ -63,7 +63,7 @@ class Adldap2UserController extends Adldap2Controller {
                 $search = $provider->search();
                 $result = $search->users()->findByDn($dn);
                 return $result;
-            } catch (Adldap\Exceptions\ModelNotFoundException $e) {
+            } catch (\Adldap\Models\ModelNotFoundException $e) {
                 // user wasn't found!
                 return FALSE;
             }
